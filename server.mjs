@@ -118,25 +118,3 @@ app.listen(3000, () => {
 
 
 
-app.post('/subscribe', (req, res) => {
-  const email = req. body.email;
-  const location = req.body. location;
-  console. log('New subscription request from $femail) in ${location}');
-  MongoClient.connect(url, (err, client) => {
-    if (err) {
-      console.error(err);
-      res.sendStatus (500);
-    } else {
-      console. log( 'Connected to MongoDB');
-      // create a collection for email addresses
-      const db = client.db( 'weatherapp');
-      const emails = db.collection('emails');
-      // insert the email address and location into the database
-      emails. insertOne({ email: email, location: location }, (err, result) => {
-        if (err) {
-          console.error(err);
-          res. sendStatus (500);
-        } else {
-          console. log( 'Saved email address ${email} in ${location}');
-          res.sendStatus (200);
-        }
